@@ -78,7 +78,7 @@ RSpec.describe OmniAuth::Strategies::MicrosoftOffice365 do
 
     it "uses correct scope and allows to customize authorization parameters" do
       expect(strategy.authorize_params).to match(
-        "scope" => "User.Read",
+        "scope" => "openid User.Read Contacts.Read",
         "foo" => "bar",
         "baz" => "zip",
         "state" => /\A\h{48}\z/

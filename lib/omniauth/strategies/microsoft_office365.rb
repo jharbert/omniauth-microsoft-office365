@@ -12,7 +12,7 @@ module OmniAuth
       }
 
       option :authorize_params, {
-        scope: "User.Read",
+        scope: "openid User.Read Contacts.Read",
       }
 
       uid { raw_info["id"] }
@@ -27,7 +27,7 @@ module OmniAuth
           business_phones: raw_info["businessPhones"],
           mobile_phone:    raw_info["mobilePhone"],
           office_phone:    raw_info["officePhone"],
-          image:           profile_photo,
+          image:           avatar_file,
         }
       end
 
@@ -47,7 +47,7 @@ module OmniAuth
         options[:redirect_uri] || (full_host + script_name + callback_path)
       end
 
-      def profile_photo
+      def avatar_file
         photo = access_token.get("https://graph.microsoft.com/v1.0/me/photo/$value")
         ext   = photo.content_type.sub("image/", "") # "image/jpeg" => "jpeg"
 
